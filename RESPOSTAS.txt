@@ -1,0 +1,27 @@
+Qual o objetivo do comando cache em Spark?
+Persistir as informações somente em memória.
+
+O mesmo código implementado em Spark é normalmente mais rápido que a implementação equivalente em MapReduce. Por quê?
+O Spark faz uso de Resilient Distributed Datasets (RDDs) o qual implementa estruturas de dados em memória e que são utilizadas para armazenar em cache os dados existentes entre os nós de um cluster. Uma vez que as RDDs ficam em memória, os algorítimos podem interagir nesta área de RDD várias vezes de forma eficiente.
+
+Qual é a função do SparkContext ?
+Depois que um SparkContext é criado, você pode usá-lo para criar RDDs, acumuladores e variáveis de difusão, acessar os serviços do Spark e executar trabalhos (até que o SparkContext seja interrompido).
+
+Explique com suas palavras o que é Resilient Distributed Datasets (RDD).
+RDD é a abstração de dados do Apache Spark, os recursos com os quais são criados e implementados são responsáveis por sua velocidade significativa. 
+
+GroupByKey é menos eficiente que reduceByKey em grandes dataset. Por quê?
+Em reduceByKey (), os pares com a mesma chave são combinados (usando a função passada em reduceByKey ()) antes que os dados sejam embaralhados. Em seguida, a função é chamada novamente para reduzir todos os valores de cada partição para produzir um resultado final.
+Em groupByKey (), todos os pares de valores-chave são misturados. Estes são muitos dados desnecessários para serem transferidos pela rede.
+
+
+Explique o que o código Scala abaixo faz.
+val textFile = sc . textFile ( "hdfs://..." )
+val counts = textFile . flatMap ( line => line . split ( " " ))
+. map ( word => ( word , 1 ))
+. reduceByKey ( _ + _ )
+counts . saveAsTextFile ( "hdfs://..." )
+
+A função realiza um map de uma função sobre uma coleção de dados, porém achatando o resultado final em um nível, isto é, retornando um array de uma dimensão apenas por conta do flatMap.
+Aplicando um reduceByKey para combinar as chaves e "agrupar" os valores.
+E por fim salva o resultado em disco.
