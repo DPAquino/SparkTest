@@ -5,4 +5,4 @@ pasta Out contem todos os .txt com os resultados praticos, o mesmo está dentro 
 Substituir os arquivos na pasta In com os do endereço:
 https://drive.google.com/drive/folders/106FSVjCMEgrFRfBAir1SmMMj8sNYUWy1?usp=sharing
 
-No arquivo original existia um registro incompleto gerando um erro, caso use outro arquivo atentar a esse detalhe.
+No arquivo original o ultimo registro estava incompleto gerando um erro, caso use outro arquivo atentar-se a esse detalhe.
