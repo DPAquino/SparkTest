@@ -1,4 +1,4 @@
-package test.douglas;
+package spark.douglas;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
@@ -56,11 +56,11 @@ public class App {
 	}
 
 	private static JavaRDD<String> getAccesslogFileJul() {
-		return ctx.textFile(".\\NASA_access_log_Jul95\\access_log_Jul95");
+		return ctx.textFile(".\\In\\access_log_Jul95");
 	}
 
 	private static JavaRDD<String> getAccesslogFileAug() {
-		return ctx.textFile(".\\NASA_access_log_Aug95\\access_log_Aug95");
+		return ctx.textFile(".\\In\\access_log_Aug95");
 	}
 
 	private static JavaSparkContext getContext() {
