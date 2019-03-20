@@ -1,0 +1,6 @@
+3. Os 5 URLs que mais causaram erro 404. 
+251 errors 404 - to hoohoo.ncsa.uiuc.edu
+157 errors 404 - to piweba3y.prodigy.com
+86 errors 404 - to piweba4y.prodigy.com
+69 errors 404 - to scooter.pa-x.dec.com
+3 errors 404 - to minos.bch.umontreal.ca
