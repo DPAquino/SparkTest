@@ -1,6 +1,9 @@
-package test.douglas.classes;
+package spark.douglas.classes;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -11,25 +14,27 @@ import org.slf4j.LoggerFactory;
 
 import scala.Tuple2;
 
-public class ClsError404PerDay extends Configuries {
-	private static final Logger LOG = LoggerFactory.getLogger(ClsError404PerDay.class);
+public class ClsUrlsError404 extends Configuries {
+	private static final Logger LOG = LoggerFactory.getLogger(ClsUrlsError404.class);
 
-	public ClsError404PerDay() {
+	public ClsUrlsError404() {
 	}
 
 	@Override
 	public void doResearch(JavaRDD<String> fullLog) {
 		StringBuilder sbResult = new StringBuilder();
-		sbResult.append("4. Quantidade de erros 404 por dia. \r\n");
+		sbResult.append("3. Os 5 URLs que mais causaram erro 404. \r\n");
 
+		HashMap<Integer, String> errorHash = new HashMap<Integer, String>();
+		Integer max = 0;
 		PairFunction<String, String, String> keyData = new PairFunction<String, String, String>() {
 			@Override
 			public Tuple2<String, String> call(String x) {
 				String[] splitted = x.split(" ");
-				String tuple2Value = splitted[3].substring(1, 12);
 				String code = splitted[splitted.length - 2];
+				String host = splitted[0];
 
-				return new Tuple2(tuple2Value, code.equals("404") ? "1" : "");
+				return new Tuple2(host, code.equals("404") ? "1" : "");
 			}
 		};
 
@@ -51,18 +56,35 @@ public class ClsError404PerDay extends Configuries {
 
 		JavaPairRDD<String, String> agroup = fullLog.mapToPair(keyData);
 		JavaPairRDD<String, String> errors = agroup.reduceByKey(func);
+
 		List<Tuple2<String, String>> errorList = errors.collect();
 
-		if (errorList.size() > 0) {
-			for (Tuple2<String, String> h : errorList) {
-				sbResult.append("Date " + h._1 + " : " + h._2 + " errors\r\n");
+		for (Tuple2<String, String> h : errorList) {
+			if (!h._2.equals("")) {
+				int amount = Integer.parseInt(h._2);
+				if (amount > max) {
+					errorHash.put(Integer.valueOf(h._2), h._1);
+					max = amount;
+				}
 			}
-			printResult(sbResult.toString(), ".\\Out\\test4.txt");
-			LOG.info("Error 404 Research Finished");
+		}
+
+		if (errorHash.size() > 0) {
+			for (int i = 0; i < 5; i++) {
+				Integer key = getMaxKey(errorHash);
+				sbResult.append(key + " errors 404 - to " + errorHash.get(key) + "\r\n");
+				errorHash.remove(key);
+			}
+			printResult(sbResult.toString(), ".\\Out\\test3.txt");
+			LOG.info("Top Five Error 404 Research Finished");
 		} else {
 			sbResult.append("Dados não encontrados");
 		}
+	}
 
+	private Integer getMaxKey(HashMap<Integer, String> errorHash) {
+		Integer key = Collections.max(errorHash.entrySet(), Map.Entry.comparingByKey()).getKey();
+		return key;
 	}
 
 }

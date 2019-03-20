@@ -1,4 +1,4 @@
-package test.douglas.classes;
+package spark.douglas.classes;
 
 import java.util.List;
 

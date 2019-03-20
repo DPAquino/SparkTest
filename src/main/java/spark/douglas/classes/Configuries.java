@@ -1,4 +1,4 @@
-package test.douglas.classes;
+package spark.douglas.classes;
 
 import java.io.BufferedWriter;
 import java.io.IOException;

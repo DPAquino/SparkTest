@@ -4,11 +4,11 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 
-import test.douglas.classes.ClsBytesReturned;
-import test.douglas.classes.ClsError404;
-import test.douglas.classes.ClsError404PerDay;
-import test.douglas.classes.ClsUniqueHost;
-import test.douglas.classes.ClsUrlsError404;
+import spark.douglas.classes.ClsBytesReturned;
+import spark.douglas.classes.ClsError404;
+import spark.douglas.classes.ClsError404PerDay;
+import spark.douglas.classes.ClsUniqueHost;
+import spark.douglas.classes.ClsUrlsError404;
 
 public class App {
 	private static JavaSparkContext ctx;
