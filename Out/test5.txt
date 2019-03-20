@@ -1,2 +1,2 @@
 5. O total de bytes retornados. 
-Total Bytes: 0
+Total Bytes: 65524314915
